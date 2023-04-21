@@ -1,0 +1,34 @@
+[project]
+name = "hf-speecht5"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Bingsu", email = "ks2515@naver.com"},
+]
+dependencies = [
+    "black",
+    "isort",
+    "ruff",
+    "mypy",
+    "ipywidgets",
+
+    "torch @ https://download.pytorch.org/whl/cu118/torch-2.0.0%2Bcu118-cp310-cp310-win_amd64.whl",
+    "torchaudio @ https://download.pytorch.org/whl/cu118/torchaudio-2.0.1%2Bcu118-cp310-cp310-win_amd64.whl",
+    "lightning>=2.0.0",
+    "pytorch_optimizer",
+    "transformers @ git+https://github.com/huggingface/transformers",
+    "datasets",
+    "pandas",
+    "librosa",
+    "phonemizer",
+
+    "rich",
+    "loguru",
+    "wandb",
+    "pyyaml",
+    "munch",
+]
+requires-python = ">=3.10,<3.11"
+license = {text = "MIT"}
+
+[tool.pdm]
