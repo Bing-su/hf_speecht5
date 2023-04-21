@@ -175,3 +175,11 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python
 .pdm-python
+
+*.ckpt
+*.bin
+*.safetensors
+model/
+wandb/
+checkpoints/
+*.ipynb
