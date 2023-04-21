@@ -32,3 +32,16 @@ requires-python = ">=3.10,<3.11"
 license = {text = "MIT"}
 
 [tool.pdm]
+[tool.pdm.scripts]
+ruff = "ruff --fix ."
+black = "black ."
+isort = "isort ."
+lint = { composite = ["isort", "black", "ruff"] }
+
+[tool.isort]
+profile = "black"
+
+[tool.ruff]
+select = ["A", "B", "C4", "E", "F", "I001", "ISC", "N", "PIE", "PT", "RET", "SIM", "UP", "W"]
+ignore = ["B008", "B905", "E501", "N812"]
+unfixable = ["F401"]

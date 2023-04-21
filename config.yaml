@@ -1,0 +1,8 @@
+model:
+  name_or_path: "model"
+data:
+  path: "D:/test/kaist-audio-book"
+  audio_col: "audio"
+  text_col: "text"
+  batch_size: 32
+  num_workers: 8
