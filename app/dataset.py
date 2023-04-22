@@ -1,5 +1,6 @@
 import lightning as L
 import torch
+import numpy as np
 from datasets import Dataset as HFDataset
 from datasets import load_from_disk
 from munch import Munch
@@ -13,18 +14,19 @@ class Collator:
         self.tk = tokenizer
 
     def __call__(self, batch):
-        inputs = self.tk.pad([b["tokens"] for b in batch], padding=True)
-        target = self.fe.pad([b["target"] for b in batch], padding=True)
-        inputs["labels"] = target["input_values"]
-        inputs["stop_labels"] = target["stop_labels"]
-        decoder_attention_mask = target.get("decoder_attention_mask")
-        if decoder_attention_mask:
-            inputs["decoder_attention_mask"] = decoder_attention_mask
+        audio = [b["audio"] for b in batch]
+        text = [b["text"] for b in batch]
+
+        inputs = self.tk(text, padding=True)
+        features = self.fe(audio_target=audio, sampling_rate=16000, padding=True)
+        inputs["labels"] = features["input_values"]
+
+        attention_mask = features.get("attention_mask")
+        if attention_mask is not None:
+            inputs["decoder_attention_mask"] = attention_mask
 
         if "speaker_id" in batch[0]:
-            inputs["speaker_id"] = torch.tensor(
-                [b["speaker_id"] for b in batch], dtype=torch.long
-            )
+            inputs["speaker_id"] = np.array([b["speaker_id"] for b in batch])
         return BatchFeature(inputs, tensor_type="pt")
 
 
@@ -36,13 +38,10 @@ class MyDataset(Dataset):
         self.tk = AutoTokenizer.from_pretrained(cfg.model.name_or_path)
 
     def __getitem__(self, idx: int):
-        audio = self.dataset[idx][self.cfg.data.audio_col]
+        audio = self.dataset[idx][self.cfg.data.audio_col]["array"]
         text = self.dataset[idx][self.cfg.data.text_col]
 
-        tokens = self.tk(text)
-        target = self.fe(audio_target=audio, sampling_rate=16000)
-
-        output = {"tokens": tokens, "target": target}
+        output = {"audio": audio, "text": text}
         if self.cfg.data.speaker_id_col:
             s_id = self.dataset[idx][self.cfg.data.speaker_id_col]
             output["speaker_id"] = s_id
@@ -60,9 +59,7 @@ class DataModule(L.LightningDataModule):
 
     def setup(self, stage: str) -> None:
         ds = load_from_disk(self.cfg.data.path)
-        dss = ds["train"].train_test_split(
-            test_size=0.05, seed=42, shuffle=True, stratify_by_column="speaker_id"
-        )
+        dss = ds.train_test_split(test_size=0.05, seed=42, shuffle=True)
         self.train = MyDataset(self.cfg, dss["train"])
         self.val = MyDataset(self.cfg, dss["test"])
         self.collator = Collator(self.train.fe, self.train.tk)
