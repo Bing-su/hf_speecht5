@@ -9,8 +9,8 @@ data:
   batch_size: 32
   num_workers: 8
 train:
-  lr: !!float 1e-4
+  lr: !!float 1e-3
   weight_decay: !!float 1e-2
   max_epochs: 10
   precision: "16-mixed"
-  fast_dev_run: 100
+  fast_dev_run: 0
