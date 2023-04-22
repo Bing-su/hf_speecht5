@@ -183,4 +183,3 @@ model/
 wandb/
 checkpoints/
 *.ipynb
-*.csv
