@@ -41,15 +41,16 @@ class MyModule(L.LightningModule):
     def validation_step(self, batch, batch_idx):
         output = self.step(batch)
         loss = output.loss
-        self.log("val_loss", loss)
+        self.log("val_loss", loss, on_epoch=True, prog_bar=True)
         return loss
 
     def configure_optimizers(self):
         optimizer = create_optimizer(
             self,
-            "lion",
+            "madgrad",
             lr=self.cfg.train.lr,
             weight_decay=self.cfg.train.weight_decay,
+            decouple_decay=True,
         )
 
         scheduler = torch.optim.lr_scheduler.OneCycleLR(
@@ -64,6 +65,7 @@ class MyModule(L.LightningModule):
 
     def save(self, path: str | Path):
         path = Path(path)
+        path.mkdir(parents=True, exist_ok=True)
         if self.speaker_embedding is not None:
             self.model.config.num_speakers = self.cfg.model.num_speakers
             torch.save(

@@ -6,11 +6,11 @@ data:
   audio_col: "audio"
   text_col: "text"
   speaker_id_col: "speaker_id"
-  batch_size: 32
-  num_workers: 8
+  batch_size: 16
+  num_workers: 10
 train:
-  lr: !!float 1e-3
-  weight_decay: !!float 1e-2
+  lr: !!float 1e-4
+  weight_decay: !!float 1e-4
   max_epochs: 10
   precision: "16-mixed"
   fast_dev_run: 0
