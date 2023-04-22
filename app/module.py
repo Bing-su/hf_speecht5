@@ -6,7 +6,7 @@ import lightning as L
 import torch
 from munch import Munch
 from pytorch_optimizer import create_optimizer
-from transformers import SpeechT5ForTextToSpeech
+from transformers import SpeechT5Config, SpeechT5ForTextToSpeech
 
 
 class MyModule(L.LightningModule):
@@ -15,7 +15,8 @@ class MyModule(L.LightningModule):
         self.save_hyperparameters()
         self.cfg = cfg
 
-        self.model = SpeechT5ForTextToSpeech.from_pretrained(cfg.model.name_or_path)
+        config = SpeechT5Config.from_pretrained(cfg.model.name_or_path)
+        self.model = SpeechT5ForTextToSpeech(config)
         self.speaker_embedding = None
         if self.cfg.model.num_speakers > 1:
             self.speaker_embedding = torch.nn.Embedding(

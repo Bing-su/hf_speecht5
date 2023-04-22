@@ -1,9 +1,12 @@
+from pathlib import Path
+
+import librosa
 import lightning as L
-import torch
 import numpy as np
-from datasets import Dataset as HFDataset
-from datasets import load_from_disk
+import pandas as pd
+import torch
 from munch import Munch
+from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader, Dataset
 from transformers import AutoFeatureExtractor, AutoTokenizer, BatchFeature
 
@@ -31,25 +34,27 @@ class Collator:
 
 
 class MyDataset(Dataset):
-    def __init__(self, cfg: Munch, dataset: HFDataset):
+    def __init__(self, cfg: Munch, df: pd.DataFrame):
         self.cfg = cfg
-        self.dataset = dataset
+        self.df = df.reset_index(drop=True)
         self.fe = AutoFeatureExtractor.from_pretrained(cfg.model.name_or_path)
         self.tk = AutoTokenizer.from_pretrained(cfg.model.name_or_path)
 
     def __getitem__(self, idx: int):
-        audio = self.dataset[idx][self.cfg.data.audio_col]["array"]
-        text = self.dataset[idx][self.cfg.data.text_col]
+        audio_path = self.df.loc[idx, self.cfg.data.audio_col]
+        text = self.df.loc[idx, self.cfg.data.text_col]
+
+        audio, _ = librosa.load(audio_path, sr=16000)
 
         output = {"audio": audio, "text": text}
         if self.cfg.data.speaker_id_col:
-            s_id = self.dataset[idx][self.cfg.data.speaker_id_col]
+            s_id = self.df.loc[idx, self.cfg.data.speaker_id_col]
             output["speaker_id"] = s_id
 
         return output
 
     def __len__(self):
-        return len(self.dataset)
+        return len(self.df)
 
 
 class DataModule(L.LightningDataModule):
@@ -58,10 +63,13 @@ class DataModule(L.LightningDataModule):
         self.cfg = cfg
 
     def setup(self, stage: str) -> None:
-        ds = load_from_disk(self.cfg.data.path)
-        dss = ds.train_test_split(test_size=0.05, seed=42, shuffle=True)
-        self.train = MyDataset(self.cfg, dss["train"])
-        self.val = MyDataset(self.cfg, dss["test"])
+        data_path = Path(__file__).parent.parent / "kaist-audio-book.csv"
+        df = pd.read_csv(data_path)
+        train_df, val_df = train_test_split(
+            df, test_size=0.05, random_state=42, stratify=df["speaker_id"]
+        )
+        self.train = MyDataset(self.cfg, train_df)
+        self.val = MyDataset(self.cfg, val_df)
         self.collator = Collator(self.train.fe, self.train.tk)
 
     def train_dataloader(self):
