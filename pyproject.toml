@@ -21,6 +21,7 @@ dependencies = [
     "pandas",
     "librosa",
     "phonemizer",
+    "scikit-learn",
 
     "rich",
     "loguru",

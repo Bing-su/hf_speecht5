@@ -990,12 +990,12 @@ dependencies = [
 
 [[package]]
 name = "pytorch-optimizer"
-version = "2.5.2"
+version = "2.6.0"
 requires_python = ">=3.7.2,<4.0.0"
 summary = "optimizer & lr scheduler implementations in PyTorch with clean-code, strict types. Also, including useful optimization ideas."
 dependencies = [
     "numpy; python_version >= \"3.8\"",
-    "torch>=2.0; python_version >= \"3.8\"",
+    "torch>=1.10; python_version >= \"3.8\"",
 ]
 
 [[package]]
@@ -1305,7 +1305,7 @@ name = "transformers"
 version = "4.29.0.dev0"
 requires_python = ">=3.7.0"
 git = "https://github.com/huggingface/transformers"
-revision = "8a817e1ecac6a420b1bdc701fcc33535a3b96ff5"
+revision = "d04ec99bec8a0b432fc03ed60cea9a1a20ebaf3c"
 summary = "State-of-the-art Machine Learning for JAX, PyTorch and TensorFlow"
 dependencies = [
     "filelock",
@@ -1422,7 +1422,7 @@ dependencies = [
 [metadata]
 lock_version = "4.2"
 groups = ["default"]
-content_hash = "sha256:75c96aa12550d456dc08a29c0ad239cfc203148b4fa58a57374097c32a118f30"
+content_hash = "sha256:5ebc1f7ec6287f8cac5d837e26a69ef5ff89aa348f5723d39ce4406995b07f3e"
 
 [metadata.files]
 "aiohttp 3.8.4" = [
@@ -2700,9 +2700,9 @@ content_hash = "sha256:75c96aa12550d456dc08a29c0ad239cfc203148b4fa58a57374097c32
     {url = "https://files.pythonhosted.org/packages/e7/e5/7ea193105ea06aaaae5523e9855c4f58b8276a70f4cfff2ef7a685b789f3/pytorch-lightning-2.0.1.post0.tar.gz", hash = "sha256:965f7eb9725b2a50da484edbdeae151ed368ad0520599fba504dfb65a29d2f3b"},
     {url = "https://files.pythonhosted.org/packages/f0/29/29ab3d16bf8b7290117f164e8c79bcb17d46d438d36ccbe3e643232623d0/pytorch_lightning-2.0.1.post0-py3-none-any.whl", hash = "sha256:8525a60b5177fc7d63799b6a10b742e3b03d3f25bf3ed3cb3333b685f55ab453"},
 ]
-"pytorch-optimizer 2.5.2" = [
-    {url = "https://files.pythonhosted.org/packages/44/1d/bb8111c18e5cc51bf9401a53d1703d8f742e1931f092a44222881998a2be/pytorch_optimizer-2.5.2.tar.gz", hash = "sha256:1d488617e2f083b39e9d9f79acd72d37c5f87b74a3502b048be51cea796a40cb"},
-    {url = "https://files.pythonhosted.org/packages/85/6a/596d563cabad091171c07fba7c2176ebc2002c93a6293ad484c8e0e88fbb/pytorch_optimizer-2.5.2-py3-none-any.whl", hash = "sha256:f54b7aa170058d7e80c5c9e0249de8bc6b84e1bc915430af39b34374946ea949"},
+"pytorch-optimizer 2.6.0" = [
+    {url = "https://files.pythonhosted.org/packages/1b/94/c640cd469cb5851a6106a7ad7f4f66d60f90d4e1a69fb5a89ec0408c7b16/pytorch_optimizer-2.6.0.tar.gz", hash = "sha256:e86b2dcf811548a6f0943548a2cd6b5defa93b1f02e96ba473f6ce3914c192a4"},
+    {url = "https://files.pythonhosted.org/packages/ea/4b/2f8774abd6b13de61f3d0443a9383953b2def4aa6c20d5d641f883953379/pytorch_optimizer-2.6.0-py3-none-any.whl", hash = "sha256:7d617627cf90ff011cc2c775c36b6e5d2c6d50a756638bb87cf769b1e35b5b4f"},
 ]
 "pytz 2023.3" = [
     {url = "https://files.pythonhosted.org/packages/5e/32/12032aa8c673ee16707a9b6cdda2b09c0089131f35af55d443b6a9c69c1d/pytz-2023.3.tar.gz", hash = "sha256:1d8ce29db189191fb55338ee6d0387d82ab59f3d00eac103412d64e0ebd0c588"},
