@@ -1,8 +1,13 @@
 model:
   name_or_path: "model"
+  num_speakers: 13
 data:
   path: "D:/test/kaist-audio-book"
   audio_col: "audio"
   text_col: "text"
+  speaker_id_col: "speaker_id"
   batch_size: 32
   num_workers: 8
+train:
+  lr: !!float 1e-4
+  weight_decay: !!float 1e-2

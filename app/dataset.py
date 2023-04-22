@@ -20,6 +20,11 @@ class Collator:
         decoder_attention_mask = target.get("decoder_attention_mask")
         if decoder_attention_mask:
             inputs["decoder_attention_mask"] = decoder_attention_mask
+
+        if "speaker_id" in batch[0]:
+            inputs["speaker_id"] = torch.tensor(
+                [b["speaker_id"] for b in batch], dtype=torch.long
+            )
         return BatchFeature(inputs, tensor_type="pt")
 
 
@@ -37,7 +42,12 @@ class MyDataset(Dataset):
         tokens = self.tk(text)
         target = self.fe(audio_target=audio, sampling_rate=16000)
 
-        return {"tokens": tokens, "target": target}
+        output = {"tokens": tokens, "target": target}
+        if self.cfg.data.speaker_id_col:
+            s_id = self.dataset[idx][self.cfg.data.speaker_id_col]
+            output["speaker_id"] = s_id
+
+        return output
 
     def __len__(self):
         return len(self.dataset)
