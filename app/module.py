@@ -47,13 +47,20 @@ class MyModule(L.LightningModule):
     def configure_optimizers(self):
         optimizer = create_optimizer(
             self,
-            "adafactor",
+            "lion",
             lr=self.cfg.train.lr,
             weight_decay=self.cfg.train.weight_decay,
-            warmup_init=True,
         )
 
-        return optimizer
+        scheduler = torch.optim.lr_scheduler.OneCycleLR(
+            optimizer,
+            max_lr=self.cfg.train.lr,
+            total_steps=self.trainer.estimated_stepping_batches,
+        )
+
+        scheduler_config = {"scheduler": scheduler, "interval": "step"}
+
+        return [optimizer], [scheduler_config]
 
     def save(self, path: str | Path):
         path = Path(path)

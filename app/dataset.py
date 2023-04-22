@@ -21,15 +21,22 @@ class Collator:
         text = [b["text"] for b in batch]
 
         inputs = self.tk(text, padding=True)
-        features = self.fe(audio_target=audio, sampling_rate=16000, padding=True)
-        inputs["labels"] = features["input_values"]
+        features = self.fe(
+            audio_target=audio, sampling_rate=16000, padding=True, return_tensors="pt"
+        )
 
-        attention_mask = features.get("attention_mask")
-        if attention_mask is not None:
-            inputs["decoder_attention_mask"] = attention_mask
+        labels = features["input_values"]
+        labels_attention_mask = features["attention_mask"]
+        labels = labels.masked_fill(labels_attention_mask.unsqueeze(-1).ne(1), -100)
+
+        length = labels.shape[1]
+        if length % 2 == 1:
+            labels = labels[:, :-1]
+        inputs["labels"] = labels
 
         if "speaker_id" in batch[0]:
             inputs["speaker_id"] = np.array([b["speaker_id"] for b in batch])
+
         return BatchFeature(inputs, tensor_type="pt")
 
 
