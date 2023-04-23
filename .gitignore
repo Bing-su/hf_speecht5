@@ -183,3 +183,6 @@ model/
 wandb/
 checkpoints/
 *.ipynb
+save/
+*.wav
+*.pt
