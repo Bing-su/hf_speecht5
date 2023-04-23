@@ -990,7 +990,7 @@ dependencies = [
 
 [[package]]
 name = "pytorch-optimizer"
-version = "2.6.0"
+version = "2.6.1"
 requires_python = ">=3.7.2,<4.0.0"
 summary = "optimizer & lr scheduler implementations in PyTorch with clean-code, strict types. Also, including useful optimization ideas."
 dependencies = [
@@ -2700,9 +2700,9 @@ content_hash = "sha256:5ebc1f7ec6287f8cac5d837e26a69ef5ff89aa348f5723d39ce440699
     {url = "https://files.pythonhosted.org/packages/e7/e5/7ea193105ea06aaaae5523e9855c4f58b8276a70f4cfff2ef7a685b789f3/pytorch-lightning-2.0.1.post0.tar.gz", hash = "sha256:965f7eb9725b2a50da484edbdeae151ed368ad0520599fba504dfb65a29d2f3b"},
     {url = "https://files.pythonhosted.org/packages/f0/29/29ab3d16bf8b7290117f164e8c79bcb17d46d438d36ccbe3e643232623d0/pytorch_lightning-2.0.1.post0-py3-none-any.whl", hash = "sha256:8525a60b5177fc7d63799b6a10b742e3b03d3f25bf3ed3cb3333b685f55ab453"},
 ]
-"pytorch-optimizer 2.6.0" = [
-    {url = "https://files.pythonhosted.org/packages/1b/94/c640cd469cb5851a6106a7ad7f4f66d60f90d4e1a69fb5a89ec0408c7b16/pytorch_optimizer-2.6.0.tar.gz", hash = "sha256:e86b2dcf811548a6f0943548a2cd6b5defa93b1f02e96ba473f6ce3914c192a4"},
-    {url = "https://files.pythonhosted.org/packages/ea/4b/2f8774abd6b13de61f3d0443a9383953b2def4aa6c20d5d641f883953379/pytorch_optimizer-2.6.0-py3-none-any.whl", hash = "sha256:7d617627cf90ff011cc2c775c36b6e5d2c6d50a756638bb87cf769b1e35b5b4f"},
+"pytorch-optimizer 2.6.1" = [
+    {url = "https://files.pythonhosted.org/packages/8b/a1/487c81500f3d059d0f897b0ddd7e9c6abc8fe5fdcde701fe1a26aa6d5543/pytorch_optimizer-2.6.1-py3-none-any.whl", hash = "sha256:599e5b7732cfcc96cb5ebb46e7d73ed63d50a2bc5e892bd4658117aaa865bcf4"},
+    {url = "https://files.pythonhosted.org/packages/f2/28/257a65fef694095042bc87b473a44a0fab6a58daf051267b8f83ab6382ee/pytorch_optimizer-2.6.1.tar.gz", hash = "sha256:86baa3b83d71098a5e2e412608db8fa6dd94a993c0003ccb3af2ab6024c5a70e"},
 ]
 "pytz 2023.3" = [
     {url = "https://files.pythonhosted.org/packages/5e/32/12032aa8c673ee16707a9b6cdda2b09c0089131f35af55d443b6a9c69c1d/pytz-2023.3.tar.gz", hash = "sha256:1d8ce29db189191fb55338ee6d0387d82ab59f3d00eac103412d64e0ebd0c588"},
