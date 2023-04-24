@@ -1,8 +1,9 @@
 model:
   name_or_path: "model"
   num_speakers: 13
+  resume:
 data:
-  path: "D:/test/kaist-audio-book"
+  path: "kaist-audio-book.csv"
   audio_col: "audio"
   text_col: "text"
   speaker_id_col: "speaker_id"
@@ -11,6 +12,8 @@ data:
 train:
   lr: !!float 1e-4
   weight_decay: !!float 1e-4
-  max_epochs: 10
+  max_epochs: 100
   precision: "16-mixed"
   fast_dev_run: 0
+  gradient_clip_val: 1.0
+  resume_from_checkpoint:

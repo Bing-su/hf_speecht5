@@ -4,6 +4,7 @@ from pathlib import Path
 
 import lightning as L
 import torch
+from loguru import logger
 from munch import Munch
 from pytorch_optimizer import create_optimizer
 from transformers import SpeechT5Config, SpeechT5ForTextToSpeech
@@ -22,6 +23,11 @@ class MyModule(L.LightningModule):
             self.speaker_embedding = torch.nn.Embedding(
                 self.cfg.model.num_speakers, self.model.config.speaker_embedding_dim
             )
+
+        if self.cfg.model.get("resume") and Path(self.cfg.model.resume).exists():
+            logger.info(f"load state dict from {self.cfg.model.resume}")
+            sd = torch.load(self.cfg.model.resume, map_location="cpu")
+            self.load_state_dict(sd["state_dict"])
 
     def forward(self, *args, **kwargs):
         return self.model(*args, **kwargs)

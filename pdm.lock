@@ -1305,7 +1305,7 @@ name = "transformers"
 version = "4.29.0.dev0"
 requires_python = ">=3.7.0"
 git = "https://github.com/huggingface/transformers"
-revision = "d04ec99bec8a0b432fc03ed60cea9a1a20ebaf3c"
+revision = "3d3204c025b6b5de013e07dd364208e28b4d9589"
 summary = "State-of-the-art Machine Learning for JAX, PyTorch and TensorFlow"
 dependencies = [
     "filelock",

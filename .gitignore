@@ -181,7 +181,7 @@ pyrightconfig.json
 *.safetensors
 model/
 wandb/
-checkpoints/
+*checkpoints/
 *.ipynb
 save/
 *.wav
